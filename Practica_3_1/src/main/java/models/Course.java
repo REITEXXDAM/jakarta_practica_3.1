@@ -11,5 +11,15 @@ public class Course {
     private Integer id;
     @NotNull
     private String title;
+
+
+
+    //Conexion con Teacher
+
+    @ManyToOne (optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+    private Teacher teacher;
+// getters, setters...
+
 // getters, setters...
 }
