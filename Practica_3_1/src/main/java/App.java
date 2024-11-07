@@ -1,4 +1,6 @@
+import dao.CourseDaoImpl;
 import dao.TeacherDaoImpl;
+import models.Course;
 import models.Teacher;
 
 public class App {
@@ -12,6 +14,19 @@ public class App {
 
         teacherDao.create(t1);
         Teacher teacher = teacherDao.find(1);
-        System.out.println(teacher);
+
+        //Asignatura
+
+        Course c1 = new Course();
+        c1.setTitle("Matemáticas");
+        c1.setTeacher(t1); // Asociar el Teacher al Course
+
+        CourseDaoImpl courseDao = new CourseDaoImpl();
+        courseDao.create(c1);
+
+        Course retrievedCourse = courseDao.find(c1.getId());
+
+        System.out.println("Course: " + retrievedCourse.getTitle());
+        System.out.println("Teacher: " + retrievedCourse.getTeacher().getFirstName() + " " + retrievedCourse.getTeacher().getLastName());
     }
 }
