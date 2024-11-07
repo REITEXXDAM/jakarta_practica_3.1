@@ -1,13 +1,19 @@
 package dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 
 public abstract class Dao<T, K> {
     protected EntityManager em = Persistence
             .createEntityManagerFactory("default")
             .createEntityManager();
+
+    public EntityManager getEntityManager() {
+        return this.em;
+    }
+
+    public abstract T find(K id);
 
     public T create(T t) {
         EntityTransaction transaction = em.getTransaction();
@@ -15,10 +21,6 @@ public abstract class Dao<T, K> {
         em.persist(t);
         transaction.commit();
         return t;
-    }
-
-    public T find(Class<T> clazz, K id) {
-        return em.find(clazz, id);
     }
 
     public T update(T t) {
