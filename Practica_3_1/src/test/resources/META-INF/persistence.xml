@@ -1,19 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="default">
         <properties>
-            <property name="hibernate.connection.url"
-                      value="jdbc:mysql://localhost:33060/AD_aulavirtual"/>
-            <property name="hibernate.connection.driver_class"
-                      value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.password" value="12345Abcde"/>
-            <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <!-- Ensure JDBC URL matches Docker service or host machine mapping -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:33060/AD_aulavirtual"/>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.user" value="mysql_user"/>
+            <property name="jakarta.persistence.jdbc.password" value="12345Abcde"/>
+
+            <!-- Hibernate dialect for MySQL 8 -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+
+            <!-- Other properties -->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>

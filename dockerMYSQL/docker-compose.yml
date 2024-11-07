@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mysql:
     image: bitnami/mysql:latest
-    container_name: blozte_bbdd
+    container_name: AD_aulavirtual
     environment:
       - MYSQL_ROOT_PASSWORD=12345Abcde
       - MYSQL_USER=mysql_user
