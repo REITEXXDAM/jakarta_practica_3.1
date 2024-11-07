@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: bitnami/mysql:latest
+    container_name: blozte_bbdd
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345Abcde
+      - MYSQL_USER=mysql_user
+      - MYSQL_PASSWORD=12345Abcde
+    ports:
+      - '33060:3306'
+    volumes:
+      - mysql_data:/bitnami/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Monta el script de inicialización
+    networks:
+      - mysql_network
+
+networks:
+  mysql_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
