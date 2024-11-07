@@ -5,7 +5,6 @@ public class App {
 
     public static void main(String[] args) {
         Teacher t1 = new Teacher();
-        t1.setId(1);
         t1.setFirstName("Pepe");
         t1.setLastName("Fernandez");
 
