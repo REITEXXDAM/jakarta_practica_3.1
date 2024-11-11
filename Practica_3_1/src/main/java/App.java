@@ -47,24 +47,38 @@ public class App {
         // Crear estudiantes
         for (int i = 0; i < 5; i++) {
             Student student = new Student();
-            student.setFirstName("John" + i);
-            student.setLastName("Doe" + i);
+            student.setFirstName("Juan" + i);
+            student.setLastName("Perez" + i);
             studentDao.create(student);
         }
 
-        Course existingCourse = courseDao.find(1);
-        for (int i = 1; i < 6; i++) {
-            existingCourse.addStudent(studentDao.find(i));
-        }
 
-        courseDao.update(existingCourse);
-        existingCourse = courseDao.find(1);
-
+        // Crear más cursos y persistirlos
         for (int i = 0; i < 5; i++) {
-            System.out.println(existingCourse.getStudents().get(i));
+            Course newCourse = new Course();
+            newCourse.setTitle("Curso " + (i + 1));
+            newCourse.setTeacher(teacher); // Asociamos el profesor al curso
+            courseDao.create(newCourse);
         }
 
 
+        Student student = studentDao.find(1);
 
+        for (int i = 1; i <= 5; i++) {
+            Course courseToAssign = courseDao.find(i);
+            if (courseToAssign != null) {
+                student.addCourse(courseToAssign);
+            } else {
+                System.out.println("Curso con ID " + i + " no encontrado");
+            }
+        }
+
+        studentDao.update(student);
+
+        Student updatedStudent = studentDao.find(student.getId());
+        System.out.println("Estudiante: " + updatedStudent.getFirstName() + " " + updatedStudent.getLastName());
+        for (Course c : updatedStudent.getCourses()) {
+            System.out.println("Curso: " + c.getTitle());
+        }
     }
 }
