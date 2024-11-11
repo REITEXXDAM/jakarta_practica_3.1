@@ -26,12 +26,19 @@ public class Course {
 
     @ManyToMany
     @JoinTable(
-            name = "students_courses",
-            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName =
-                    "id")
+            name ="stundents_courses",
+            joinColumns = @JoinColumn(name = "course_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "stundent_id",referencedColumnName = "id")
     )
     private List<Student> students;
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
     // getters y setters
     public Teacher getTeacher() {
@@ -60,5 +67,9 @@ public class Course {
 
     public CourseMaterial getMaterial() {
         return material;
+    }
+
+    public void addStudent(Student student) {
+        this.students.add(student);
     }
 }

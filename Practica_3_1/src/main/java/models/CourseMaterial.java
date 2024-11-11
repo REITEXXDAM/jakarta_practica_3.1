@@ -12,12 +12,9 @@ public class CourseMaterial {
 
     @NotNull
     private String url;
-
     @OneToOne(optional = false)
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     private Course course;
-
-
 
     public Integer getId() {
         return id;
@@ -25,6 +22,14 @@ public class CourseMaterial {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public String getUrl() {
@@ -35,11 +40,12 @@ public class CourseMaterial {
         this.url = url;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
+    @Override
+    public String toString() {
+        return "CourseMaterial{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", course=" + course +
+                '}';
     }
 }
