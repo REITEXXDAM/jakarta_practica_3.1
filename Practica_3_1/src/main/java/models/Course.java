@@ -18,6 +18,10 @@ public class Course {
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     private Teacher teacher;
 
+    //Conexion con materialCourse
+    @OneToOne(mappedBy = "course")
+    private CourseMaterial material;
+
     // getters y setters
     public Teacher getTeacher() {
         return teacher;
@@ -41,5 +45,9 @@ public class Course {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public CourseMaterial getMaterial() {
+        return material;
     }
 }

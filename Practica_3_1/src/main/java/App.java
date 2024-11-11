@@ -1,44 +1,40 @@
 import dao.CourseDaoImpl;
+import dao.CourseMaterialDaoImpl;
 import dao.TeacherDaoImpl;
 import models.Course;
+import models.CourseMaterial;
 import models.Teacher;
 
 public class App {
-
     public static void main(String[] args) {
-
-        Teacher t1 = new Teacher();
-        t1.setFirstName("Pepe");
-        t1.setLastName("Fernandez");
-
+        // Crear un profesor y persistirlo
+        Teacher teacher = new Teacher();
+        teacher.setFirstName("Ana");
+        teacher.setLastName("Gomez");
         TeacherDaoImpl teacherDao = new TeacherDaoImpl();
-        teacherDao.create(t1);
-        Teacher teacher = teacherDao.find(1);
+        teacherDao.create(teacher);
 
-        // Crear una asignatura
-        Course c1 = new Course();
-        c1.setTitle("Matemáticas");
-        c1.setTeacher(t1); // Asociar el Teacher al Course
-
+        // Crear un curso y persistirlo
+        Course course = new Course();
+        course.setTitle("Historia del Arte");
+        course.setTeacher(teacher);
         CourseDaoImpl courseDao = new CourseDaoImpl();
-        courseDao.create(c1);
+        courseDao.create(course);
 
-        Course retrievedCourse = courseDao.find(c1.getId());
+        // Crear material
+        CourseMaterial material = new CourseMaterial();
+        material.setUrl("https://es.wikipedia.org/wiki/Historia");
+        material.setCourse(course);
+        CourseMaterialDaoImpl materialDao = new CourseMaterialDaoImpl();
+        materialDao.create(material);
 
-        System.out.println("Course: " + retrievedCourse.getTitle());
-        System.out.println("Teacher: " + retrievedCourse.getTeacher().getFirstName() + " " + retrievedCourse.getTeacher().getLastName());
+        // Obtener
+        CourseMaterial retrievedMaterial = materialDao.find(material.getId());
+        System.out.println("Material URL: " + retrievedMaterial.getUrl());
+        System.out.println("Curso asociado: " + retrievedMaterial.getCourse().getTitle());
 
-        // MODIFICAR
-        retrievedCourse.setTitle("Matemáticas MODIFIY");
-        Course updatedCourse = courseDao.update(retrievedCourse);
-
-        System.out.println("Curso actualizado: " + updatedCourse.getTitle());
-
-        // ELiminado
-        courseDao.delete(updatedCourse);
-        System.out.println("El curso" + updatedCourse.getTitle() + " se ha eliminado.");
-
+        Course retrievedCourse = courseDao.find(course.getId());
+        System.out.println("Curso: " + retrievedCourse.getTitle());
+        System.out.println("Material asociado: " + (retrievedCourse.getMaterial() != null ? retrievedCourse.getMaterial().getUrl() : "No hay material asociado"));
     }
-
 }
-
