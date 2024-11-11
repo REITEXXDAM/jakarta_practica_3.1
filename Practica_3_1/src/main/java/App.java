@@ -91,5 +91,13 @@ public class App {
         for (Course course1 : courses) {
             System.out.println("Curso: " + course1.getTitle() + ", Profesor: " + course1.getTeacher().getFirstName() + " " + course1.getTeacher().getLastName());
         }
+
+        List<Student> students = studentDao.listStudentsByCourseId(1);
+
+        // Mostrar los estudiantes obtenidos
+        System.out.println("Estudiantes del curso 'Matemáticas':");
+        for (Student student1 : students) {
+            System.out.println(student1.getFirstName() + " " + student1.getLastName());
+        }
     }
 }

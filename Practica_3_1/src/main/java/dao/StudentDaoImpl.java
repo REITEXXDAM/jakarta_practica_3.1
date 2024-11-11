@@ -1,5 +1,7 @@
 package dao;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import models.CourseMaterial;
 import models.Student;
@@ -12,16 +14,15 @@ public class StudentDaoImpl extends Dao<Student, Integer> {
         return student;
     }
 
-    public List<Student> listStudentsByCourseId(Integer courseId) {
-        TypedQuery<Student> query = em.createQuery(
-                "SELECT s FROM Student s JOIN s.courses c WHERE c.id = :courseId",
-                Student.class
-        );
+    public List<Student> listStudentsByCourseId(int courseId) {
+        EntityManager entityManager = getEntityManager();
 
-        // Establece el parámetro `courseId` en la consulta
+        // Consulta JPQL que busca estudiantes asociados a un curso por id
+        String queryStr = "SELECT s FROM Student s JOIN s.courses c WHERE c.id = :courseId";
+        Query query = entityManager.createQuery(queryStr);
         query.setParameter("courseId", courseId);
 
-        // Ejecuta la consulta y devuelve el resultado como una lista de estudiantes
+        // Ejecutamos la consulta y devolvemos la lista de estudiantes
         return query.getResultList();
     }
 }
