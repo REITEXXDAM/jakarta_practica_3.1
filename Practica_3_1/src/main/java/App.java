@@ -6,17 +6,16 @@ import models.Teacher;
 public class App {
 
     public static void main(String[] args) {
+
         Teacher t1 = new Teacher();
         t1.setFirstName("Pepe");
         t1.setLastName("Fernandez");
 
         TeacherDaoImpl teacherDao = new TeacherDaoImpl();
-
         teacherDao.create(t1);
         Teacher teacher = teacherDao.find(1);
 
-        //Asignatura
-
+        // Crear una asignatura
         Course c1 = new Course();
         c1.setTitle("Matemáticas");
         c1.setTeacher(t1); // Asociar el Teacher al Course
@@ -28,5 +27,16 @@ public class App {
 
         System.out.println("Course: " + retrievedCourse.getTitle());
         System.out.println("Teacher: " + retrievedCourse.getTeacher().getFirstName() + " " + retrievedCourse.getTeacher().getLastName());
+
+        // MODIFICAR
+        retrievedCourse.setTitle("Matemáticas MODIFIY");
+        Course updatedCourse = courseDao.update(retrievedCourse);
+
+        System.out.println("Curso actualizado: " + updatedCourse.getTitle());
+
+        // ELiminado
+        courseDao.delete(updatedCourse);
+        System.out.println("El curso" + updatedCourse.getTitle() + " se ha eliminado.");
+
     }
 }
