@@ -3,6 +3,8 @@ package models;
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Course {
     @Id
@@ -21,6 +23,15 @@ public class Course {
     //Conexion con materialCourse
     @OneToOne(mappedBy = "course")
     private CourseMaterial material;
+
+    @ManyToMany
+    @JoinTable(
+            name = "students_courses",
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName =
+                    "id")
+    )
+    private List<Student> students;
 
     // getters y setters
     public Teacher getTeacher() {

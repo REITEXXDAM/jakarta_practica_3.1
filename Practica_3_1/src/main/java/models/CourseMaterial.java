@@ -17,6 +17,8 @@ public class CourseMaterial {
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     private Course course;
 
+
+
     public Integer getId() {
         return id;
     }

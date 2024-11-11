@@ -3,10 +3,8 @@ package models;
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
-public class Teacher {
+public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -16,13 +14,6 @@ public class Teacher {
     @NotNull
     private String lastName;
 
-
-
-
-    //Conexion con Course
-
-    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
-    private List<Course> courses;
 
     public Integer getId() {
         return id;
@@ -48,15 +39,12 @@ public class Teacher {
         this.lastName = lastName;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
-    }
-
     @Override
     public String toString() {
-        return "Teacher{" +
+        return "Student{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName;
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }
