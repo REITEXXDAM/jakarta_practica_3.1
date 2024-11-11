@@ -38,23 +38,6 @@ public class App {
         courseDao.delete(updatedCourse);
         System.out.println("El curso" + updatedCourse.getTitle() + " se ha eliminado.");
 
-        // Probar error persistido
-        try {
-            Course newCourseWithDetachedTeacher = new Course();
-            newCourseWithDetachedTeacher.setTitle("Historia");
-            Teacher profesor = new Teacher();
-            profesor.setId(212);
-            profesor.setFirstName("Juan");
-            profesor.setLastName("Perez");
-
-
-            newCourseWithDetachedTeacher.setTeacher(profesor);
-
-            courseDao.create(newCourseWithDetachedTeacher);
-        } catch (Exception e) {
-            System.out.println("Error al persistir el Course con Teacher detached: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 
 }
