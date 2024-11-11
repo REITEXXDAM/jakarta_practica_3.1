@@ -7,6 +7,8 @@ import models.CourseMaterial;
 import models.Student;
 import models.Teacher;
 
+import java.util.List;
+
 public class App {
     // Reutilizamos las instancias de los DAOs
     private static TeacherDaoImpl teacherDao = new TeacherDaoImpl();
@@ -79,6 +81,15 @@ public class App {
         System.out.println("Estudiante: " + updatedStudent.getFirstName() + " " + updatedStudent.getLastName());
         for (Course c : updatedStudent.getCourses()) {
             System.out.println("Curso: " + c.getTitle());
+        }
+
+
+
+        List<Course> courses = courseDao.listCoursesByLastName("Gomez");
+
+        System.out.println("Cursos de profesores con apellido 'Gomez':");
+        for (Course course1 : courses) {
+            System.out.println("Curso: " + course1.getTitle() + ", Profesor: " + course1.getTeacher().getFirstName() + " " + course1.getTeacher().getLastName());
         }
     }
 }
